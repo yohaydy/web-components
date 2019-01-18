@@ -1,0 +1,41 @@
+<html>
+  <body>
+    <div>Real input</div>
+    <input id="realInput" /> <br /><br /><br /><br /><br />
+    <div id="app"></div>
+
+    <script>
+      class MyInput extends HTMLElement {
+        constructor() {
+          super();
+
+          const root = this.attachShadow({ mode: 'open' });
+          root.innerHTML = 'Hello <slot> <input value={}/> </slot>';
+        }
+      }
+
+      customElements.define('my-input', MyInput);
+
+      const state = {
+        value: 'Kek',
+      };
+
+      // Listen for input changes and update state
+      function onRealInputChange(evt) {
+        const value = document.getElementById('realInput').value;
+        state.value = value;
+      }
+      document
+        .getElementById('realInput')
+        .addEventListener('input', onRealInputChange);
+
+      // Render DOM
+      function render() {
+        document.getElementById('app').innerHTML = `
+          <my-input> ${state.value} </my-input>
+          `;
+      }
+      setInterval(render, 10);
+    </script>
+  </body>
+</html>
