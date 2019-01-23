@@ -1,41 +1,39 @@
 <html>
   <body>
-    <div>Real input</div>
-    <input id="realInput" /> <br /><br /><br /><br /><br />
     <div id="app"></div>
-
+    <script src="./my-input.js"></script>
     <script>
-      class MyInput extends HTMLElement {
-        constructor() {
-          super();
-
-          const root = this.attachShadow({ mode: 'open' });
-          root.innerHTML = 'Hello <slot> <input value={}/> </slot>';
-        }
-      }
-
-      customElements.define('my-input', MyInput);
-
+      //TODO: Replace the code above with React
+      // Set state
       const state = {
-        value: 'Kek',
+        value: "Kek"
       };
 
-      // Listen for input changes and update state
-      function onRealInputChange(evt) {
-        const value = document.getElementById('realInput').value;
-        state.value = value;
-      }
-      document
-        .getElementById('realInput')
-        .addEventListener('input', onRealInputChange);
+      const attachEvent = () => {
+        function onChange(evt) {
+          console.log("onChange", evt);
+          // const value = document.getElementById("realInput").value;
+          const value = evt.detail.value;
+
+          state.value = value;
+        }
+        document
+          .getElementById("myInput")
+          .addEventListener("change", onChange);
+      };
 
       // Render DOM
       function render() {
-        document.getElementById('app').innerHTML = `
-          <my-input> ${state.value} </my-input>
-          `;
+        document.getElementById("app").innerHTML = `
+      <my-input id="myInput" value='${state.value}'/>
+      `;
+        attachEvent();
       }
-      setInterval(render, 10);
+      setInterval(render, 1000);
+
+      setTimeout(render, 100);
+
+      setTimeout(attachEvent, 200);
     </script>
   </body>
 </html>
