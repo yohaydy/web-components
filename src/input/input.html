@@ -1,39 +1,117 @@
 <html>
   <body>
+    <!-- TODO: IF NOTHING IS WORKING USE REACTIFY (react-web-components) -->
+    <!-- SOLUTIONS: BEST -> WORSE  -->
+    <!-- 1. have controlled web components, state is stored in App(React) -->
+    <!-- 2. have uncontrolled web components, state is stored in DOM  -->
+    <!-- 3. have controlled component -->
+
+    CONCLUSION:
+    It is
     <div id="app"></div>
-    <script src="./my-input.js"></script>
+    <my-input value="static"></my-input>
+    <script
+      src="https://unpkg.com/babel-standalone@6/babel.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+
+    <!-- MY-INPUT WEB COMPONENT -->
     <script>
-      //TODO: Replace the code above with React
-      // Set state
-      const state = {
-        value: "Kek"
-      };
+      class MyControlledInput extends HTMLElement {
+        constructor(props) {
+          super(props);
+          this.shadow = this.attachShadow({ mode: "open" });
 
-      const attachEvent = () => {
-        function onChange(evt) {
-          console.log("onChange", evt);
-          // const value = document.getElementById("realInput").value;
-          const value = evt.detail.value;
+          this.addEventListener("keypress", evt => {
+            evt.preventDefault();
+            const value = this.getAttribute("value") + evt.key;
+            const customEvent = new CustomEvent("change", {
+              bubbles: true,
+              detail: { value }
+            });
 
-          state.value = value;
+            this.dispatchEvent(customEvent);
+          });
         }
-        document
-          .getElementById("myInput")
-          .addEventListener("change", onChange);
-      };
+        static get observedAttributes() {
+          return ["value"];
+        }
+        attributeChangedCallback() {
+          const value = this.getAttribute("value");
+          this.shadowRoot.activeElement.setAttribute("value", value);
+        }
 
-      // Render DOM
-      function render() {
-        document.getElementById("app").innerHTML = `
-      <my-input id="myInput" value='${state.value}'/>
-      `;
-        attachEvent();
+        connectedCallback() {
+          const value = this.getAttribute("value");
+          console.log("connectedCallback", value);
+
+          // console.log("THIS>value", value)
+          this.shadow.innerHTML = `Hellol <input value="${value}"/> `;
+        }
       }
-      setInterval(render, 1000);
+      customElements.define("my-input", MyControlledInput);
+    </script>
 
-      setTimeout(render, 100);
+<!-- MY-UNCONTROLLED INPUT WEB COMPONENT -->
+<script>
+    class MyUncontrolledInput extends HTMLElement {
+      constructor(props) {
+        super(props);
+        this.shadow = this.attachShadow({ mode: "open" });
+      }
 
-      setTimeout(attachEvent, 200);
+      connectedCallback() {
+        this.shadow.innerHTML = `You cannot control me <input /> `;
+      }
+    }
+    customElements.define("my-uncuntrolled-input", MyUncontrolledInput);
+  </script>
+
+    <!-- REACT APP -->
+    <script type="text/babel">
+      const e = React.createElement;
+
+      class MyReactComponent extends React.Component {
+        state = { value: 5 };
+
+        componentDidMount() {
+          const el = document
+            .getElementById("ref")
+            .addEventListener("change", evt =>
+              this.setState({ value: evt.detail.value })
+            );
+        }
+
+        render() {
+          return (
+            <div>
+              <my-input
+                value={this.state.value}
+                id="ref"
+                onChange={() => console.log("IIIK")}
+              />
+              <my-uncuntrolled-input/>
+              {this.state.value}
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <h1>
+          Hello, world!<div>HAHHA</div>
+          <MyReactComponent />
+        </h1>,
+        document.getElementById("app")
+      );
     </script>
   </body>
 </html>
