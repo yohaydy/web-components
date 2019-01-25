@@ -16,6 +16,7 @@ Conclusions:
     This makes easier to write web components, but it is not practical to use such components in React app,
     since it contradicts the main principle of React, which is keeping DOM in sync with your data
 3. It is not practical to use custom elements for components where you want to keep control of the component state inside your App,
+4. By making components to accept object, arrays and callbacks, they are becoming unusable in plain HTMl (without framework)
 
 However it may be useful to use custom elements for something what should be completely isolated from your App state,
 Something like  widget, which uses external services for getting data. 
