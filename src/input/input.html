@@ -1,13 +1,6 @@
 <html>
   <body>
-    <!-- TODO: IF NOTHING IS WORKING USE REACTIFY (react-web-components) -->
-    <!-- SOLUTIONS: BEST -> WORSE  -->
-    <!-- 1. have controlled web components, state is stored in App(React) -->
-    <!-- 2. have uncontrolled web components, state is stored in DOM  -->
-    <!-- 3. have controlled component -->
-
-    CONCLUSION:
-    It is
+   
     <div id="app"></div>
     <my-input value="static"></my-input>
     <script
@@ -28,52 +21,52 @@
       class MyControlledInput extends HTMLElement {
         constructor(props) {
           super(props);
-          this.shadow = this.attachShadow({ mode: "open" });
+          this.shadow = this.attachShadow({ mode: 'open' });
 
-          this.addEventListener("keypress", evt => {
+          this.addEventListener('keypress', evt => {
             evt.preventDefault();
-            const value = this.getAttribute("value") + evt.key;
-            const customEvent = new CustomEvent("change", {
+            const value = this.getAttribute('value') + evt.key;
+            const customEvent = new CustomEvent('change', {
               bubbles: true,
-              detail: { value }
+              detail: { value },
             });
 
             this.dispatchEvent(customEvent);
           });
         }
         static get observedAttributes() {
-          return ["value"];
+          return ['value'];
         }
         attributeChangedCallback() {
-          const value = this.getAttribute("value");
-          this.shadowRoot.activeElement.setAttribute("value", value);
+          const value = this.getAttribute('value');
+          this.shadowRoot.activeElement.setAttribute('value', value);
         }
 
         connectedCallback() {
-          const value = this.getAttribute("value");
-          console.log("connectedCallback", value);
+          const value = this.getAttribute('value');
+          console.log('connectedCallback', value);
 
           // console.log("THIS>value", value)
-          this.shadow.innerHTML = `Hellol <input value="${value}"/> `;
+          this.shadow.innerHTML = `Controlled <input value="${value}"/> `;
         }
       }
-      customElements.define("my-input", MyControlledInput);
+      customElements.define('my-input', MyControlledInput);
     </script>
 
-<!-- MY-UNCONTROLLED INPUT WEB COMPONENT -->
-<script>
-    class MyUncontrolledInput extends HTMLElement {
-      constructor(props) {
-        super(props);
-        this.shadow = this.attachShadow({ mode: "open" });
-      }
+    <!-- MY-UNCONTROLLED INPUT WEB COMPONENT -->
+    <script>
+      class MyUncontrolledInput extends HTMLElement {
+        constructor(props) {
+          super(props);
+          this.shadow = this.attachShadow({ mode: 'open' });
+        }
 
-      connectedCallback() {
-        this.shadow.innerHTML = `You cannot control me <input /> `;
+        connectedCallback() {
+          this.shadow.innerHTML = `You cannot control me <input id="unc" /> `;
+        }
       }
-    }
-    customElements.define("my-uncuntrolled-input", MyUncontrolledInput);
-  </script>
+      customElements.define('my-uncuntrolled-input', MyUncontrolledInput);
+    </script>
 
     <!-- REACT APP -->
     <script type="text/babel">
@@ -84,33 +77,34 @@
 
         componentDidMount() {
           const el = document
-            .getElementById("ref")
-            .addEventListener("change", evt =>
-              this.setState({ value: evt.detail.value })
+            .getElementById('ref')
+            .addEventListener('change', evt =>
+              this.setState({ value: evt.detail.value }),
             );
         }
 
         render() {
           return (
             <div>
-              <my-input
-                value={this.state.value}
-                id="ref"
-                onChange={() => console.log("IIIK")}
-              />
-              <my-uncuntrolled-input/>
-              {this.state.value}
+              <div>
+                <my-input
+                  value={this.state.value}
+                  id="ref"
+                />
+                {this.state.value}
+              </div>
+              <my-uncuntrolled-input id="anc" />
             </div>
           );
         }
       }
 
       ReactDOM.render(
-        <h1>
-          Hello, world!<div>HAHHA</div>
+        <h3>
+          Hello, world!
           <MyReactComponent />
-        </h1>,
-        document.getElementById("app")
+        </h3>,
+        document.getElementById('app'),
       );
     </script>
   </body>

@@ -1,0 +1,21 @@
+TODO: IF NOTHING IS WORKING USE REACTIFY (react-web-components) 
+
+Question:
+    Is it possible to have a set of reusable components
+    with strong encapsulation which will work across all (most popular) frameworks ?
+
+Notes:
+    Web components are written in more imperative way,
+    which makes it harder to implement components with complex logic.
+    For that reason, libraries like Polymer, Stencil exist.
+
+Conclusions: 
+1. have controlled web components, state is stored in App(React)
+    If controlled elements can be used only with react, then it is not conceptually different from just using react components 
+2. have uncontrolled web components, state is stored in DOM
+    This makes easier to write web components, but it is not practical to use such components in React app,
+    since it contradicts the main principle of React, which is keeping DOM in sync with your data
+3. It is not practical to use custom elements for components where you want to keep control of the component state inside your App,
+
+However it may be useful to use custom elements for something what should be completely isolated from your App state,
+Something like  widget, which uses external services for getting data. 
