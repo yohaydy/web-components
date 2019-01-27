@@ -9,6 +9,11 @@ Notes:
     which makes it harder to implement components with complex logic.
     For that reason, libraries like Polymer, Stencil exist.
 
+    Making web components, means interacting with browser API,
+    Since browser API's are differs beetwen browser and version,
+    there will be additional work required to make thing compatible.
+    In this case we need to implement compatability layer, which React provides.
+
 Conclusions: 
 1. have controlled web components, state is stored in App(React)
     If controlled elements can be used only with react, then it is not conceptually different from just using react components 
