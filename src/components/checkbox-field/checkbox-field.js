@@ -25,3 +25,6 @@ export default class CheckboxField extends Component {
     );
   }
 }
+
+// 1. Events should be attached in imperative way
+// 2. Objects and arrays cannot be passed as a properties
