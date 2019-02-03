@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <base href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/" />
+    <script src="webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="iron-icon/iron-icon.html" />
+    <link rel="import" href="iron-icons/iron-icons.html" />
+    <link rel="import" href="paper-button/paper-button.html" />
+    <link rel="import" href="paper-checkbox/paper-checkbox.html" />
+    <style>
+        .ok {
+            background: #acd;
+        }
+        .cancel {
+            background: #fea;
+        }
+    </style>
+  </head>
+  <body>
+    <div>
+      <paper-button toggles raised class="ok">
+        <iron-icon icon="check"> </iron-icon>
+        <div>OK</div>
+      </paper-button>
+      <paper-button raised class="cancel"
+        ><iron-icon icon="clear"></iron-icon>
+        <div>Cancel</div>
+      </paper-button>
+    </div>
+    </br>
+
+    <paper-checkbox>Checkbox</paper-checkbox>
+   
+  </body>
+</html>
