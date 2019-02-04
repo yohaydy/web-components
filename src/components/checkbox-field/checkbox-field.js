@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "./checkbox-field-wc";
+import React, { Component } from 'react';
+import './checkbox-field-wc';
 
 export default class CheckboxField extends Component {
   constructor() {
@@ -7,24 +7,35 @@ export default class CheckboxField extends Component {
     this.checkbox = React.createRef();
   }
 
+  state = {
+    value: true,
+  };
+
   componentDidMount() {
-    this.checkbox.current.addEventListener("change", () => {
+    // Listening for events
+    this.checkbox.current.addEventListener('change', () => {
       this.setState({ value: !this.state.value });
     });
+    this.updateCheckboxValue();
   }
 
-  state = {
-    value: true
-  };
-  render() {
+  updateCheckboxValue = () => {
     const { value } = this.state;
+    if (this.checkbox.current) {
+      // Passing state
+      this.checkbox.current.value = value;
+    }
+  };
+
+  componentDidUpdate() {
+    this.updateCheckboxValue();
+  }
+
+  render() {
     return (
       <div>
-        <checkbox-field ref={this.checkbox} label="Over 18" value={value} />
+        <checkbox-field ref={this.checkbox} label="Over 18" />
       </div>
     );
   }
 }
-
-// 1. Events should be attached in imperative way
-// 2. Objects and arrays cannot be passed as a properties

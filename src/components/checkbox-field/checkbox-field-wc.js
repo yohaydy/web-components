@@ -1,32 +1,26 @@
 class CheckboxField extends HTMLElement {
   constructor(props) {
     super(props);
-    this.shadow = this.attachShadow({ mode: "open" });
-    this.checked = false;
-  }
-
-  static get observedAttributes() {
-    return ["value"];
-  }
-
-  attributeChangedCallback() {
-    this.value = this.getAttribute("value");
-    this.render();
+    this._shadow = this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
-    this.value = this.getAttribute("value");
-    this.label = this.getAttribute("label");
-    this.render();
+    this._label = this.getAttribute("label");
+    this._render();
 
-    this.shadow.addEventListener("click", () => {
+    this._shadow.addEventListener("click", () => {
       const event = new Event('change');
       this.dispatchEvent(event);
     });
   }
 
-  render() {
-    this.shadow.innerHTML = `
+  set value(newValue) {
+    this._value = newValue;
+    this._render();
+  }
+
+  _render() {
+    this._shadow.innerHTML = `
       <style> 
         container {
           margin: 100px auto;
@@ -41,7 +35,7 @@ class CheckboxField extends HTMLElement {
           cursor: pointer;
         }
         checkbox {
-          background: ${this.value === "true" ? "#555" : "#fff"};
+          background: ${this._value ? "#555" : "#fff"};
           border: 3px solid #555;
           border-radius: 10px;
           width: 30px;
@@ -53,10 +47,11 @@ class CheckboxField extends HTMLElement {
       <container>
         <checkbox></checkbox>
         <label>
-          ${this.label}
+          ${this._label}
         </label> 
       </container>
     `;
   }
 }
+
 customElements.define("checkbox-field", CheckboxField);
