@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         {/* <TextField/> */}
-        <CheckboxField/>
+        {/* <CheckboxField/> */}
         <CheckboxFieldReactified/>
       </div>
     );
