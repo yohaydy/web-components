@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-import CheckboxFieldReactified from './checkbox-field-wc';
+import reactify from 'skatejs-react-integration';
+import CheckboxFieldWc from '../wc-components/checkbox-field-wc';
 
+let CheckboxFieldReactifiedWc;
 export default class CheckboxField extends Component {
+  constructor(){
+    super()
+    CheckboxFieldReactifiedWc = reactify(CheckboxFieldWc);
+  }
+  
   state = {
     value: true,
   };
@@ -12,9 +19,11 @@ export default class CheckboxField extends Component {
 
   render() {
     const { value } = this.state;
+    
+    
     return (
       <div>
-        <CheckboxFieldReactified
+        <CheckboxFieldReactifiedWc
           label="Reacrified"
           value={value}
           onChange={this.onChange}

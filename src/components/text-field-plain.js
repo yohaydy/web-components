@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./text-field-wc";
+import "../wc-components/text-field-wc";
 
 export default class extends Component {
   state = {
