@@ -1,19 +1,16 @@
 import React, { Component } from "react";
-import TextField from "./components/text-field-plain";
-import CheckboxField from "./components/checkbox-field-plain";
-import CheckboxFieldReactified from  "./components/checkbox-field-reactified";
-import CheckboxFieldWc from './wc-components/checkbox-field-wc';
+import CheckboxField from "./components/checkbox-field";
+import CheckboxFieldReactified from "./components/checkbox-field-reactified";
+import CheckboxFieldWc from "./web-components/checkbox-field-wc";
 
-customElements.define('checkbox-field', CheckboxFieldWc)
+customElements.define("checkbox-field", CheckboxFieldWc);
 
 class App extends Component {
   render() {
     return (
       <div>
-        <TextField/>
-        <CheckboxField/>
-        <CheckboxFieldReactified/>
-        <input type="checkbox" checked/>
+        <CheckboxField />
+        <CheckboxFieldReactified />
       </div>
     );
   }

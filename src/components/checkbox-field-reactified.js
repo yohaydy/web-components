@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import reactify from 'skatejs-react-integration';
-import CheckboxFieldWc from '../wc-components/checkbox-field-wc';
+import CheckboxFieldWc from '../web-components/checkbox-field-wc';
 
 let CheckboxFieldReactifiedWc;
 export default class CheckboxField extends Component {

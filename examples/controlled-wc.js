@@ -13,7 +13,11 @@ export default class MyApp extends Component {
     const { checked } = this.state;
     return (
       <div>
-        <my-checkbox checked={checked} onChange={this.toggleCheckbox} />
+        <my-checkbox
+          value={checked}
+          label="My Checkbox"
+          onChange={this.toggleCheckbox}
+        />
       </div>
     );
   }

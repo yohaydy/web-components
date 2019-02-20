@@ -33,7 +33,7 @@ export default class CheckboxField extends Component {
   render() {
     return (
       <div>
-        <checkbox-field ref={this.checkbox} label="Over 18" />
+        <checkbox-field ref={this.checkbox} label="Vanilla" />
       </div>
     );
   }

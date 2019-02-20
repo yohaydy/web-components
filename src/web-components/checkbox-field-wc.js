@@ -1,16 +1,16 @@
 class CheckboxField extends HTMLElement {
   constructor(props) {
     super(props);
-    this._shadow = this.attachShadow({ mode: 'open' });
+    this._shadow = this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
-    this._render();
-    this._label = this.getAttribute('label');
-    this._shadow.addEventListener('click', () => {
-      const event = new Event('change');
+    this._label = this.getAttribute("label");
+    this._shadow.addEventListener("click", () => {
+      const event = new Event("change");
       this.dispatchEvent(event);
     });
+    this._render();
   }
 
   set value(newValue) {
@@ -39,7 +39,7 @@ class CheckboxField extends HTMLElement {
             cursor: pointer;
           }
           checkbox {
-            background: ${this._value ? '#555' : '#fff'};
+            background: ${this._value ? "#555" : "#fff"};
             border: 3px solid #555;
             border-radius: 10px;
             width: 30px;
